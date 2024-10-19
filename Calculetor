@@ -1,0 +1,47 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Step 1: Prompt the user to enter the first number
+        Console.Write("Enter the first number: ");
+        bool isValidNum1 = double.TryParse(Console.ReadLine(), out double num1);
+
+        // Step 2: Prompt the user to enter the second number
+        Console.Write("Enter the second number: ");
+        bool isValidNum2 = double.TryParse(Console.ReadLine(), out double num2);
+
+        // Step 3: Validate input using if statements
+        if (!isValidNum1 || !isValidNum2)
+        {
+            Console.WriteLine("Invalid input. Please enter valid numeric values.");
+        }
+        else
+        {
+            // Step 4: Perform operations using arithmetic operators
+            double sum = num1 + num2;            // Addition
+            double difference = num1 - num2;     // Subtraction
+            double product = num1 * num2;        // Multiplication
+
+            // Step 5: Check for division by zero
+            if (num2 != 0)
+            {
+                double quotient = num1 / num2;   // Division
+                Console.WriteLine($"\nResults:");
+                Console.WriteLine($"Addition: {num1} + {num2} = {sum}");
+                Console.WriteLine($"Subtraction: {num1} - {num2} = {difference}");
+                Console.WriteLine($"Multiplication: {num1} * {num2} = {product}");
+                Console.WriteLine($"Division: {num1} / {num2} = {quotient}");
+            }
+            else
+            {
+                Console.WriteLine($"\nResults:");
+                Console.WriteLine($"Addition: {num1} + {num2} = {sum}");
+                Console.WriteLine($"Subtraction: {num1} - {num2} = {difference}");
+                Console.WriteLine($"Multiplication: {num1} * {num2} = {product}");
+                Console.WriteLine("Division: Cannot divide by zero.");
+            }
+        }
+    }
+}
