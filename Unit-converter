@@ -1,0 +1,66 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+Console.WriteLine("Welcome to the Unit Converter!");
+
+        // Prompt the user to enter the value and the type of conversion
+        Console.WriteLine("\nAvailable Conversions:");
+        Console.WriteLine("1. Kilometers to Miles");
+        Console.WriteLine("2. Miles to Kilometers");
+        Console.WriteLine("3. Celsius to Fahrenheit");
+        Console.WriteLine("4. Fahrenheit to Celsius");
+        Console.WriteLine("5. Kilograms to Pounds");
+        Console.WriteLine("6. Pounds to Kilograms");
+
+        Console.Write("\nEnter the number corresponding to the conversion you want to perform: ");
+        string conversionType = Console.ReadLine();
+
+        // Prompt the user to enter the value to convert
+        Console.Write("Enter the value you want to convert: ");
+        string inputValue = Console.ReadLine();
+
+        // Convert the input value to double
+        double value = Convert.ToDouble(inputValue);
+
+        // Perform conversions using operators
+        double convertedValue = 0;
+
+        if (conversionType == "1") // Kilometers to Miles
+        {
+            convertedValue = value * 0.621371; // 1 kilometer = 0.621371 miles
+            Console.WriteLine($"{value} kilometers is equal to {convertedValue} miles.");
+        }
+        else if (conversionType == "2") // Miles to Kilometers
+        {
+            convertedValue = value / 0.621371; // 1 mile = 1.60934 kilometers
+            Console.WriteLine($"{value} miles is equal to {convertedValue} kilometers.");
+        }
+        else if (conversionType == "3") // Celsius to Fahrenheit
+        {
+            convertedValue = (value * 9 / 5) + 32; // Celsius to Fahrenheit formula
+            Console.WriteLine($"{value} degrees Celsius is equal to {convertedValue} degrees Fahrenheit.");
+        }
+        else if (conversionType == "4") // Fahrenheit to Celsius
+        {
+            convertedValue = (value - 32) * 5 / 9; // Fahrenheit to Celsius formula
+            Console.WriteLine($"{value} degrees Fahrenheit is equal to {convertedValue} degrees Celsius.");
+        }
+        else if (conversionType == "5") // Kilograms to Pounds
+        {
+            convertedValue = value * 2.20462; // 1 kilogram = 2.20462 pounds
+            Console.WriteLine($"{value} kilograms is equal to {convertedValue} pounds.");
+        }
+        else if (conversionType == "6") // Pounds to Kilograms
+        {
+            convertedValue = value / 2.20462; // 1 pound = 0.453592 kilograms
+            Console.WriteLine($"{value} pounds is equal to {convertedValue} kilograms.");
+        }
+        else
+        {
+            Console.WriteLine("Invalid selection. Please run the program again.");
+        }
+    }
+}
