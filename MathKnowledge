@@ -1,0 +1,41 @@
+using System;
+
+public class Test
+{
+    public static void Main()
+    {
+        Console.WriteLine($"Check your multiplication knowledge-");
+
+
+        Console.Write($"Enter first number:");
+        int num1 = Convert.ToInt32(Console.ReadLine());
+        Console.Write($"Enter 2nd number:");
+        string? numInput = Console.ReadLine();
+        int num2 = Convert.ToInt32(numInput);
+        int ans = num1 * num2;
+        int i;
+
+        for (i = 1; i<=5; i++)
+        {
+            Console.WriteLine($"Value of {num1}X{num2}:");
+
+            Console.Write($"Enter your ans:");
+            int urAns = Convert.ToInt32(Console.ReadLine());
+
+            if (ans == urAns)
+            {
+                Console.WriteLine($"Correct answer.Well done."); break;
+            }
+            if (ans != urAns && i != 5)
+            {
+                Console.WriteLine($"Wrong answer.You have more {5 - (i)} chance.");
+            }
+              else if (i == 5)
+                {
+                    Console.WriteLine($"Wrong answer.Your Time is over.The Right ans is {num1}X{num2}={ans}");
+                }
+    
+        }
+
+    }
+}
