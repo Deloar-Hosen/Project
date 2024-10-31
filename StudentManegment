@@ -1,0 +1,115 @@
+using System;
+
+class Student
+{
+   // Private fields to store student details
+   private string? name;
+   private DateTime dateOfBirth;
+   private string? education;
+
+   // Property for Name with validation
+   public string? Name
+   {
+      set
+      {
+         // Check if the name is null or empty
+         if (string.IsNullOrEmpty(value))
+         {
+            throw new ArgumentException("Name can not be Null or Empty.");
+         }
+         name = value; // Assign value to the private field
+      }
+      get { return name; } // Getter for name
+   }
+
+   // Property for DateOfBirth with validation
+   public DateTime DateOfBirth
+   {
+      set
+      {
+         // Check if the date of birth is in the future
+         if (value > DateTime.Now)  
+         {
+            throw new ArgumentException("Exception: DateOfBirth can not be in the future.");
+         }
+         dateOfBirth = value; // Assign value to the private field
+      }
+      get { return dateOfBirth; } // Getter for date of birth
+   }
+
+   // Property for Education with validation
+   public string? Education
+   {
+      set
+      {
+         // Check if the education string is null or empty
+         if (string.IsNullOrWhiteSpace(value))
+         {
+            throw new ArgumentException("Education can not be Null or Empty.");
+         }
+         education = value; // Assign value to the private field
+      }
+      get { return education; } // Getter for education
+   }
+
+   // Constructor to initialize student details
+   public Student(string name, DateTime dateOfBirth, string education)
+   {
+      Name = name; // Set name using the property
+      DateOfBirth = dateOfBirth; // Set date of birth using the property
+      Education = education; // Set education using the property
+   }
+
+   // Private method to calculate the age of the student
+   private int CalculateAge()
+   {
+      int age = DateTime.Now.Year - DateOfBirth.Year;
+
+      // Adjust age if the birthday hasn't occurred yet this year
+      if (DateTime.Now < DateOfBirth.AddYears(age))
+      {
+         age--;
+      }
+      return age; // Return the calculated age
+   }
+
+   // Public property to get the age of the student
+   public int Age
+   {
+      get { return CalculateAge(); } // Call the CalculateAge method
+   }
+
+   // Method to print student details
+   public void PrintDetails()
+   {
+      Console.WriteLine($"Name: {Name}"); // Print name
+      Console.WriteLine($"DateOfBirth: {DateOfBirth.ToShortDateString()}"); // Print date of birth
+      Console.WriteLine($"Education: {Education}"); // Print education
+      Console.WriteLine($"Age: {Age}\n"); // Print age
+   }
+}
+
+// Main class for managing students
+public class StudentManagement
+{
+   public static void Main()
+   {
+      try
+      {
+         // Create and initialize student objects
+         Student student1 = new Student("Deloar Hosen", new DateTime(2003, 12, 10), "social work");
+         Student student2 = new Student("Imtiaz Mahmud", new DateTime(2004, 05, 13), "ICT-26");
+
+         Console.WriteLine($"\nStudents Details:\n"); // Print header for student details
+
+         // Display details by calling the PrintDetails method
+         student1.PrintDetails();
+         student2.PrintDetails();
+      }
+      catch (Exception e)
+      {
+         // Print error message if an exception occurs
+         Console.WriteLine($"{e.Message}");
+      }
+   }
+}
