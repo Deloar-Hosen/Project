@@ -1,115 +1,108 @@
 using System;
+using System.Runtime.CompilerServices;
 
 class Student
 {
-   // Private fields to store student details
-   private string? name;
-   private DateTime dateOfBirth;
-   private string? education;
+    // Private property to store the student's name
+    private string? Name
+    {
+        set;
+        get;
+    }
 
-   // Property for Name with validation
-   public string? Name
-   {
-      set
-      {
-         // Check if the name is null or empty
-         if (string.IsNullOrEmpty(value))
-         {
-            throw new ArgumentException("Name can not be Null or Empty.");
-         }
-         name = value; // Assign value to the private field
-      }
-      get { return name; } // Getter for name
-   }
+    // Private property to store the student's date of birth
+    private DateTime DateOfBirth
+    {
+        set;
+        get;
+    }
 
-   // Property for DateOfBirth with validation
-   public DateTime DateOfBirth
-   {
-      set
-      {
-         // Check if the date of birth is in the future
-         if (value > DateTime.Now)  
-         {
-            throw new ArgumentException("Exception: DateOfBirth can not be in the future.");
-         }
-         dateOfBirth = value; // Assign value to the private field
-      }
-      get { return dateOfBirth; } // Getter for date of birth
-   }
+    // Private property to store the student's education
+    private string Education
+    {
+        set;
+        get;
+    }
 
-   // Property for Education with validation
-   public string? Education
-   {
-      set
-      {
-         // Check if the education string is null or empty
-         if (string.IsNullOrWhiteSpace(value))
-         {
-            throw new ArgumentException("Education can not be Null or Empty.");
-         }
-         education = value; // Assign value to the private field
-      }
-      get { return education; } // Getter for education
-   }
+    // Private method to calculate the student's age based on their date of birth
+    private int CalculateAge()
+    {
+        // Calculate age by subtracting birth year from the current year
+        int age = DateTime.Now.Year - DateOfBirth.Year;
 
-   // Constructor to initialize student details
-   public Student(string name, DateTime dateOfBirth, string education)
-   {
-      Name = name; // Set name using the property
-      DateOfBirth = dateOfBirth; // Set date of birth using the property
-      Education = education; // Set education using the property
-   }
+        // If the birthday hasn't occurred yet this year, decrement the age by 1
+        return DateTime.Now < DateOfBirth.AddYears(age) ? age - 1 : age;
+    }
 
-   // Private method to calculate the age of the student
-   private int CalculateAge()
-   {
-      int age = DateTime.Now.Year - DateOfBirth.Year;
+    // Public property to get the calculated age of the student
+    public int Age => CalculateAge();
 
-      // Adjust age if the birthday hasn't occurred yet this year
-      if (DateTime.Now < DateOfBirth.AddYears(age))
-      {
-         age--;
-      }
-      return age; // Return the calculated age
-   }
+    // Constructor to initialize student properties, with validation for inputs
+    public Student(string name, DateTime dateOfBirth, string education)
+    {
+        ValidateInput(name, dateOfBirth, education);
+        Name = name;
+        DateOfBirth = dateOfBirth;
+        Education = education;
+    }
 
-   // Public property to get the age of the student
-   public int Age
-   {
-      get { return CalculateAge(); } // Call the CalculateAge method
-   }
+    // Private static method to validate input values for name, dateOfBirth, and education
+    private static void ValidateInput(string name, DateTime dateOfBirth, string education)
+    {
+        // Check if the date of birth is in the future; if so, throw an exception
+        if (dateOfBirth > DateTime.Now)
+        {
+            throw new ArgumentException("Exception: DateOfBirth cannot be in the future.");
+        }
+        
+        // Check if date of birth is uninitialized; if so, throw an exception
+        if (dateOfBirth == default)
+        {
+            throw new ArgumentException("Exception: DateOfBirth cannot be null or empty.");
+        }
+        
+        // Check if the name is null or empty; if so, throw an exception
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            throw new ArgumentException("Exception: Name cannot be null or empty.");
+        }
+        
+        // Check if the education field is null or empty; if so, throw an exception
+        if (string.IsNullOrEmpty(education))
+        {
+            throw new ArgumentException("Exception: Education cannot be null or empty.");
+        }
+    }
 
-   // Method to print student details
-   public void PrintDetails()
-   {
-      Console.WriteLine($"Name: {Name}"); // Print name
-      Console.WriteLine($"DateOfBirth: {DateOfBirth.ToShortDateString()}"); // Print date of birth
-      Console.WriteLine($"Education: {Education}"); // Print education
-      Console.WriteLine($"Age: {Age}\n"); // Print age
-   }
+    // Method to print the student's details
+    public void PrintDetails()
+    {
+        Console.WriteLine($"Name: {Name}\n" +
+                          $"DateOfBirth: {DateOfBirth.ToShortDateString()}\n" +
+                          $"Education: {Education}\n" +
+                          $"Age: {Age}\n\n");
+    }
 }
 
-// Main class for managing students
-public class StudentManagement
+public class Program
 {
-   public static void Main()
-   {
-      try
-      {
-         // Create and initialize student objects
-         Student student1 = new Student("Deloar Hosen", new DateTime(2003, 12, 10), "social work");
-         Student student2 = new Student("Imtiaz Mahmud", new DateTime(2004, 05, 13), "ICT-26");
+    public static void Main(string[] args)
+    {
+        try
+        {
+            // Create two student objects with sample data
+            Student student1 = new Student("Deloar Hosen", new DateTime(2003, 11, 10), "CSE-32");
+            Student student2 = new Student("Imtiaz Mahmud", new DateTime(2004, 03, 23), "ICT-26");
 
-         Console.WriteLine($"\nStudents Details:\n"); // Print header for student details
-
-         // Display details by calling the PrintDetails method
-         student1.PrintDetails();
-         student2.PrintDetails();
-      }
-      catch (Exception e)
-      {
-         // Print error message if an exception occurs
-         Console.WriteLine($"{e.Message}");
-      }
-   }
+            // Print details of each student
+            student1.PrintDetails();
+            student2.PrintDetails();
+        }
+        catch (Exception e)
+        {
+            // Display any exceptions that occur during object creation or method calls
+            Console.WriteLine($"{e.Message}");
+        }
+    }
 }
+
